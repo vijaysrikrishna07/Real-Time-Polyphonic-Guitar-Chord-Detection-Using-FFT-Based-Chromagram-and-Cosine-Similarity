@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "description": "E Minor only chord dataset. Format: strings array is [E2, A2, D3, G3, B3, E4] (low to high). Values: 'x'=muted, 0=open, 1-N=fret number. Fingers: 1=index, 2=middle, 3=ring, 4=pinky, 0=open/muted (no finger).",
+    "sources": [
+      "https://archive.ics.uci.edu/dataset/575/guitar+chords+finger+positions"
+    ],
+    "string_order": [
+      "E2",
+      "A2",
+      "D3",
+      "G3",
+      "B3",
+      "E4"
+    ],
+    "string_index": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "chords": [
+    {
+      "id": "E_minor_open",
+      "name": "Em",
+      "fullName": "E Minor",
+      "type": "minor",
+      "variant": "open",
+      "strings": [
+        0,
+        2,
+        2,
+        0,
+        0,
+        0
+      ],
+      "fingers": [
+        0,
+        2,
+        3,
+        0,
+        0,
+        0
+      ],
+      "barre": null,
+      "difficulty": "beginner",
+      "description": "Standard open E minor chord — middle finger on A string fret 2, ring finger on D string fret 2."
+    }
+  ],
+  "chordProgressions": [
+    {
+      "id": "em_practice",
+      "name": "E Minor Practice Loop",
+      "key": "E",
+      "chords": [
+        "E_minor_open"
+      ],
+      "bpm": 60,
+      "beatsPerChord": 8
+    }
+  ]
+}

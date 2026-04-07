@@ -1,0 +1,13 @@
+torchvision
+pytorch
+pillow
+matplotlib
+opencv
+pandas
+tensorflow
+scikit-image
+xlrd
+scikit-learn
+seaborn
+tqdm
+gdown

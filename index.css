@@ -1,0 +1,1634 @@
+/* =========================================================
+   Guitar Chord Coach — Design System & Global Styles
+   ========================================================= */
+
+/* ---------- Fonts & CSS Variables ---------- */
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0f1624;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --accent: #4f9cf9;
+  --accent-glow: rgba(79, 156, 249, 0.35);
+  --success: #2dd4a0;
+  --success-glow: rgba(45, 212, 160, 0.35);
+  --danger: #f97066;
+  --danger-glow: rgba(249, 112, 102, 0.3);
+  --warning: #fbbf24;
+  --text-primary: #e8eaf0;
+  --text-secondary: #8b93a8;
+  --text-muted: #4f5870;
+  --font: 'Inter', system-ui, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --shadow-glow: 0 0 40px rgba(79, 156, 249, 0.12);
+  --transition: 0.2s ease;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(79, 156, 249, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(45, 212, 160, 0.05) 0%, transparent 60%);
+}
+
+/* ---------- Glassmorphism ---------- */
+.glass {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(10, 14, 26, 0.8);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 1.6rem;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.logo-text .accent {
+  color: var(--accent);
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.status-dot.active {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success-glow);
+  animation: pulse 2s infinite;
+}
+
+.status-dot.error {
+  background: var(--danger);
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ---------- Main Layout ---------- */
+.main-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr 220px;
+  gap: 16px;
+  padding: 20px;
+  min-height: calc(100vh - 65px);
+  align-items: start;
+}
+
+/* ---------- Panels ---------- */
+.controls-panel,
+.reference-panel {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 85px;
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #7b5af5);
+  color: #fff;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.btn-primary:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+}
+
+.btn-accent {
+  background: rgba(79, 156, 249, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(79, 156, 249, 0.3);
+}
+
+.btn-accent:not(:disabled):hover {
+  background: rgba(79, 156, 249, 0.25);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success), #22c995);
+  color: #0a1510;
+  font-weight: 700;
+}
+
+.btn-icon {
+  font-size: 0.85rem;
+}
+
+/* ---------- Select ---------- */
+.label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.select {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.select option {
+  background: #1a2035;
+}
+
+/* ---------- Hint text ---------- */
+.hint-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ---------- Score Display ---------- */
+.score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.score-ring {
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+
+.score-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.score-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 8;
+}
+
+.score-fill {
+  fill: none;
+  stroke: var(--success);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 264;
+  stroke-dashoffset: 264;
+  transition: stroke-dashoffset 0.6s ease, stroke 0.4s;
+  filter: drop-shadow(0 0 6px var(--success-glow));
+}
+
+.score-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.score-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ---------- Finger Status ---------- */
+.finger-status {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.finger-badge {
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.finger-badge.correct {
+  background: rgba(45, 212, 160, 0.18);
+  color: var(--success);
+  border: 1px solid rgba(45, 212, 160, 0.3);
+}
+
+.finger-badge.incorrect {
+  background: rgba(249, 112, 102, 0.15);
+  color: var(--danger);
+  border: 1px solid rgba(249, 112, 102, 0.3);
+}
+
+.finger-badge.open {
+  background: rgba(251, 191, 36, 0.12);
+  color: var(--warning);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* ---------- Video Container ---------- */
+.video-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #070b14;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+#webcamVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  /* mirror */
+  border-radius: var(--radius-xl);
+}
+
+#overlayCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-xl);
+  transform: scaleX(-1);
+  /* mirror to match video */
+}
+
+/* ---------- Video Placeholder ---------- */
+.video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #0f1624, #070b14);
+  border-radius: var(--radius-xl);
+  transition: opacity 0.3s;
+}
+
+.video-placeholder.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.placeholder-icon {
+  font-size: 3.5rem;
+}
+
+.video-placeholder p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Calibration Box ---------- */
+.calibration-box {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  width: 80%;
+  height: 55%;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: move;
+  animation: shimmer 2s infinite;
+}
+
+.calibration-box.hidden {
+  display: none !important;
+}
+
+.calib-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.calib-corner.tl {
+  top: -2px;
+  left: -2px;
+  border-width: 3px 0 0 3px;
+  border-radius: 3px 0 0 0;
+  cursor: nw-resize;
+}
+
+.calib-corner.tr {
+  top: -2px;
+  right: -2px;
+  border-width: 3px 3px 0 0;
+  border-radius: 0 3px 0 0;
+  cursor: ne-resize;
+}
+
+.calib-corner.bl {
+  bottom: -2px;
+  left: -2px;
+  border-width: 0 0 3px 3px;
+  border-radius: 0 0 0 3px;
+  cursor: sw-resize;
+}
+
+.calib-corner.br {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 3px 3px 0;
+  border-radius: 0 0 3px 0;
+  cursor: se-resize;
+}
+
+.calib-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(79, 156, 249, 0.15);
+  border: 1px solid rgba(79, 156, 249, 0.3);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 4px var(--accent-glow);
+  }
+}
+
+/* ---------- Hint Bar ---------- */
+.hint-bar {
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+#hintText {
+  display: block;
+}
+
+/* ---------- Chord Chart (Right Panel) ---------- */
+.chord-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chord-chart canvas {
+  border-radius: var(--radius-sm);
+}
+
+.chord-name-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.chord-frets-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+/* ---------- Tips ---------- */
+.tips-section {
+  margin-top: 8px;
+}
+
+.tips-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tips-list li {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.tips-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---------- Utility ---------- */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+/* =========================================================
+   Audio Chord Detector Section
+   ========================================================= */
+
+.audio-section {
+  margin: 0 20px 24px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-top: 1px solid rgba(79, 156, 249, 0.15);
+}
+
+/* Header row */
+.audio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.audio-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.audio-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.audio-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.audio-controls .btn {
+  width: auto;
+  padding: 9px 20px;
+  font-size: 0.82rem;
+}
+
+/* ---- VU Meter ---- */
+.audio-meter {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 48px;
+  padding: 4px 0;
+}
+
+.meter-bar {
+  flex: 1;
+  min-width: 0;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, var(--accent), #7b5af5);
+  height: 4px;
+  opacity: 0.25;
+  transition: height 0.1s ease, opacity 0.1s ease;
+}
+
+.meter-bar.active {
+  opacity: 1;
+}
+
+/* ---- Detected notes row ---- */
+.audio-notes-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.audio-notes-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.audio-notes-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.note-chip {
+  padding: 3px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.note-chip.muted {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+.note-chip.em-note {
+  background: rgba(45, 212, 160, 0.18);
+  color: var(--success);
+  border: 1px solid rgba(45, 212, 160, 0.35);
+}
+
+.note-chip.other-note {
+  background: rgba(251, 191, 36, 0.12);
+  color: var(--warning);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+/* ---- Result banner ---- */
+.audio-result {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 22px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  border: 1px solid transparent;
+}
+
+.audio-result #audioResultIcon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.audio-result.idle {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.audio-result.silent {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.audio-result.correct {
+  background: rgba(45, 212, 160, 0.12);
+  border-color: rgba(45, 212, 160, 0.45);
+  color: var(--success);
+  box-shadow: 0 0 24px rgba(45, 212, 160, 0.2);
+  animation: correctPulse 1.5s ease infinite;
+}
+
+.audio-result.wrong {
+  background: rgba(249, 112, 102, 0.1);
+  border-color: rgba(249, 112, 102, 0.4);
+  color: var(--danger);
+  box-shadow: 0 0 20px rgba(249, 112, 102, 0.15);
+}
+
+@keyframes correctPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(45, 212, 160, 0.18);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(45, 212, 160, 0.38);
+  }
+}
+
+/* =========================================================
+   Practice Mode Layout
+   ========================================================= */
+
+/* Two-column body */
+.practice-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ---- Left column ---- */
+.practice-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ---- Circular hold-timer ring ---- */
+.hold-ring-wrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.hold-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.hold-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 10;
+}
+
+.hold-fill {
+  fill: none;
+  stroke: var(--success);
+  stroke-width: 10;
+  stroke-linecap: round;
+  /* circumference of r=50 circle: 2πr ≈ 314.16 */
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 0.18s linear, stroke 0.3s ease;
+  filter: drop-shadow(0 0 8px var(--success-glow));
+}
+
+.hold-fill.wrong {
+  stroke: var(--danger);
+  filter: drop-shadow(0 0 6px var(--danger-glow));
+}
+
+.hold-ring-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.hold-ring-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.hold-ring-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ---- Right column ---- */
+.practice-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- 4-stat grid ---- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.stat-card:hover {
+  border-color: rgba(79, 156, 249, 0.25);
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 4px;
+}
+
+/* ---- Goal / hold settings row ---- */
+.goal-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.goal-select {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+}
+
+/* ---- Goal progress bar ---- */
+.goal-progress-wrap {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.goal-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--success));
+  border-radius: 100px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.goal-progress-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ---- Rep complete flash ---- */
+@keyframes repFlash {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.stat-card.flash {
+  animation: repFlash 0.4s ease;
+  border-color: var(--success);
+}
+
+/* ---- Goal achieved banner ---- */
+.audio-result.goal-done {
+  background: linear-gradient(135deg, rgba(79, 156, 249, 0.15), rgba(45, 212, 160, 0.12));
+  border-color: rgba(79, 156, 249, 0.5);
+  color: var(--accent);
+  box-shadow: 0 0 30px rgba(79, 156, 249, 0.2);
+  animation: correctPulse 1.8s ease infinite;
+}
+
+/* =========================================================
+   Multi-Chord Practice Session — v2 Layout
+   ========================================================= */
+
+/* Session config row */
+.session-config-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 10px 0 4px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.config-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.seq-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+/* Three-column body */
+.practice-body-v2 {
+  display: grid;
+  grid-template-columns: 190px 1fr 260px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── LEFT: Countdown ring ───────────────────────────────── */
+.practice-left-v2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Countdown ring */
+.countdown-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.countdown-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.cd-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 10;
+}
+
+.cd-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  /* circumference of r=58: 2π×58 ≈ 364.4 */
+  stroke-dasharray: 364;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.9s linear, stroke 0.4s ease;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.cd-fill.warning {
+  stroke: var(--warning);
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+}
+
+.cd-fill.danger {
+  stroke: var(--danger);
+  filter: drop-shadow(0 0 8px var(--danger-glow));
+}
+
+.countdown-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.cd-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.cd-time {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.cd-label {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── CENTRE: Target chord + pipeline ────────────────────── */
+.practice-centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Target chord card */
+.target-card {
+  background: rgba(79, 156, 249, 0.07);
+  border: 1px solid rgba(79, 156, 249, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 20px 40px;
+  text-align: center;
+  min-width: 260px;
+  transition: all 0.35s ease;
+  box-shadow: 0 0 32px rgba(79, 156, 249, 0.08);
+}
+
+.target-card.correct {
+  background: rgba(45, 212, 160, 0.12);
+  border-color: rgba(45, 212, 160, 0.5);
+  box-shadow: 0 0 40px rgba(45, 212, 160, 0.25);
+}
+
+.target-card-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.target-chord-name {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -2px;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.target-card.correct .target-chord-name {
+  color: var(--success);
+}
+
+.target-chord-full {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* ── Chord pipeline track ──── */
+.chord-pipeline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chord-pip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.pip-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.chord-pip.done .pip-circle {
+  background: rgba(45, 212, 160, 0.2);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.chord-pip.active .pip-circle {
+  background: rgba(79, 156, 249, 0.18);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 18px rgba(79, 156, 249, 0.35);
+  animation: pipPulse 1.4s ease infinite;
+}
+
+.chord-pip.pending .pip-circle {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+@keyframes pipPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 14px rgba(79, 156, 249, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 28px rgba(79, 156, 249, 0.55);
+  }
+}
+
+.pip-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.chord-pip.done .pip-label {
+  color: var(--success);
+}
+
+.chord-pip.active .pip-label {
+  color: var(--accent);
+}
+
+/* Arrow between pips */
+.pip-arrow {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* ── Live detection banner ──── */
+.detect-banner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+  font-size: 0.9rem;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.detect-banner.idle {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.detect-banner.hearing {
+  background: rgba(79, 156, 249, 0.08);
+  border-color: rgba(79, 156, 249, 0.3);
+  color: var(--accent);
+}
+
+.detect-banner.correct {
+  background: rgba(45, 212, 160, 0.12);
+  border-color: rgba(45, 212, 160, 0.45);
+  color: var(--success);
+}
+
+.detect-banner.wrong {
+  background: rgba(249, 112, 102, 0.08);
+  border-color: rgba(249, 112, 102, 0.3);
+  color: var(--danger);
+}
+
+/* first child: icon */
+.detect-banner>span:first-child {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.detect-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+#detectChordName {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+#detectChordDetail {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.detect-bar-wrap {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-top: 6px;
+  flex-basis: 100%;
+}
+
+.detect-bar {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--accent), var(--success));
+  transition: width 0.2s ease;
+}
+
+/* ── RIGHT: Stats + result ─────────────────────────────── */
+.practice-right-v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Session complete panel ──────────────────────────────── */
+.session-complete {
+  background: linear-gradient(135deg, rgba(79, 156, 249, 0.12), rgba(45, 212, 160, 0.1));
+  border: 1px solid rgba(79, 156, 249, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  animation: correctPulse 2s ease infinite;
+}
+
+.complete-icon {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+
+.complete-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.complete-detail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Responsive: collapse to single column on small screens */
+@media (max-width: 860px) {
+  .practice-body-v2 {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-left-v2,
+  .practice-centre {
+    align-items: center;
+  }
+}
+
+/* =========================================
+   7. UTILS: Custom Toggle Switch
+========================================= */
+.handedness-toggle {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.switch-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.switch-label input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.switch-label input[type="checkbox"]:checked {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--primary);
+}
+
+.switch-label input[type="checkbox"]:checked::after {
+  background: var(--primary);
+  transform: translateX(18px);
+}
+
+ / *     F r e t b o a r d   O u t - o f - B o u n d s   W a r n i n g     * / 
+ . p o s i t i o n - w a r n i n g   { 
+     p o s i t i o n :   a b s o l u t e ; 
+     t o p :   1 5 % ; 
+     l e f t :   5 0 % ; 
+     t r a n s f o r m :   t r a n s l a t e X ( - 5 0 % ) ; 
+     b a c k g r o u n d :   r g b a ( 2 2 0 ,   3 8 ,   3 8 ,   0 . 9 ) ;   / *   d e e p   r e d   * / 
+     c o l o r :   # f f f ; 
+     p a d d i n g :   1 r e m   2 r e m ; 
+     b o r d e r - r a d i u s :   1 2 p x ; 
+     f o n t - s i z e :   1 . 5 r e m ; 
+     f o n t - w e i g h t :   7 0 0 ; 
+     d i s p l a y :   f l e x ; 
+     a l i g n - i t e m s :   c e n t e r ; 
+     g a p :   0 . 7 5 r e m ; 
+     b o x - s h a d o w :   0   1 0 p x   2 5 p x   r g b a ( 2 2 0 ,   3 8 ,   3 8 ,   0 . 4 ) ; 
+     z - i n d e x :   5 0 ; 
+     b o r d e r :   2 p x   s o l i d   # f e c a c a ; 
+     a n i m a t i o n :   p u l s e - d a n g e r   1 . 5 s   i n f i n i t e ; 
+ } 
+ 
+ @ k e y f r a m e s   p u l s e - d a n g e r   { 
+     0 %   {   t r a n s f o r m :   t r a n s l a t e X ( - 5 0 % )   s c a l e ( 1 ) ;   b o x - s h a d o w :   0   0   0   0   r g b a ( 2 2 0 ,   3 8 ,   3 8 ,   0 . 7 ) ;   } 
+     5 0 %   {   t r a n s f o r m :   t r a n s l a t e X ( - 5 0 % )   s c a l e ( 1 . 0 5 ) ;   } 
+     1 0 0 %   {   t r a n s f o r m :   t r a n s l a t e X ( - 5 0 % )   s c a l e ( 1 ) ;   b o x - s h a d o w :   0   0   0   1 5 p x   r g b a ( 2 2 0 ,   3 8 ,   3 8 ,   0 ) ;   } 
+ } 
+  
+ 
+ / *     G e m i n i   F l o a t i n g   C h a t b o t     * / 
+ . c h a t b o t - w i d g e t   { 
+     p o s i t i o n :   f i x e d ; 
+     b o t t o m :   2 4 p x ; 
+     r i g h t :   2 4 p x ; 
+     w i d t h :   3 8 0 p x ; 
+     m a x - w i d t h :   c a l c ( 1 0 0 v w   -   4 8 p x ) ; 
+     b a c k g r o u n d :   r g b a ( 1 5 ,   2 3 ,   4 2 ,   0 . 8 5 ) ; 
+     b a c k d r o p - f i l t e r :   b l u r ( 2 0 p x ) ; 
+     - w e b k i t - b a c k d r o p - f i l t e r :   b l u r ( 2 0 p x ) ; 
+     b o r d e r :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 5 ) ; 
+     b o r d e r - r a d i u s :   1 6 p x ; 
+     d i s p l a y :   f l e x ; 
+     f l e x - d i r e c t i o n :   c o l u m n ; 
+     o v e r f l o w :   h i d d e n ; 
+     b o x - s h a d o w :   0   2 0 p x   4 0 p x   r g b a ( 0 ,   0 ,   0 ,   0 . 5 ) ,   0   0   0   1 p x   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 0 5 )   i n s e t ; 
+     z - i n d e x :   1 0 0 0 ; 
+     t r a n s f o r m :   t r a n s l a t e Y ( 1 2 0 % ) ; 
+     t r a n s i t i o n :   t r a n s f o r m   0 . 4 s   c u b i c - b e z i e r ( 0 . 1 6 ,   1 ,   0 . 3 ,   1 ) ,   o p a c i t y   0 . 4 s   e a s e ; 
+     o p a c i t y :   0 ; 
+     p o i n t e r - e v e n t s :   n o n e ; 
+ } 
+ 
+ . c h a t b o t - w i d g e t . o p e n   { 
+     t r a n s f o r m :   t r a n s l a t e Y ( 0 ) ; 
+     o p a c i t y :   1 ; 
+     p o i n t e r - e v e n t s :   a u t o ; 
+ } 
+ 
+ . c h a t b o t - h e a d e r   { 
+     p a d d i n g :   1 6 p x ; 
+     b a c k g r o u n d :   l i n e a r - g r a d i e n t ( 9 0 d e g ,   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 1 5 ) ,   r g b a ( 4 5 ,   2 1 2 ,   1 6 0 ,   0 . 1 5 ) ) ; 
+     b o r d e r - b o t t o m :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
+     d i s p l a y :   f l e x ; 
+     j u s t i f y - c o n t e n t :   s p a c e - b e t w e e n ; 
+     a l i g n - i t e m s :   c e n t e r ; 
+ } 
+ 
+ . c h a t b o t - t i t l e   { 
+     f o n t - w e i g h t :   6 0 0 ; 
+     f o n t - s i z e :   1 r e m ; 
+     d i s p l a y :   f l e x ; 
+     a l i g n - i t e m s :   c e n t e r ; 
+     g a p :   8 p x ; 
+ } 
+ 
+ . c h a t b o t - i c o n   {   f o n t - s i z e :   1 . 2 r e m ;   } 
+ 
+ . c h a t b o t - c l o s e   { 
+     b a c k g r o u n d :   n o n e ; 
+     b o r d e r :   n o n e ; 
+     c o l o r :   v a r ( - - t e x t - m u t e d ) ; 
+     f o n t - s i z e :   1 . 2 r e m ; 
+     c u r s o r :   p o i n t e r ; 
+     p a d d i n g :   4 p x ; 
+     l i n e - h e i g h t :   1 ; 
+     t r a n s i t i o n :   c o l o r   0 . 2 s ; 
+ } 
+ 
+ . c h a t b o t - c l o s e : h o v e r   {   c o l o r :   v a r ( - - t e x t - b a s e ) ;   } 
+ 
+ . c h a t b o t - m e s s a g e s   { 
+     h e i g h t :   3 5 0 p x ; 
+     o v e r f l o w - y :   a u t o ; 
+     p a d d i n g :   1 6 p x ; 
+     d i s p l a y :   f l e x ; 
+     f l e x - d i r e c t i o n :   c o l u m n ; 
+     g a p :   1 2 p x ; 
+ } 
+ 
+ / *   C h a t   B u b b l e s   * / 
+ . m e s s a g e   { 
+     m a x - w i d t h :   8 5 % ; 
+     p a d d i n g :   1 2 p x   1 6 p x ; 
+     b o r d e r - r a d i u s :   1 2 p x ; 
+     f o n t - s i z e :   0 . 9 r e m ; 
+     l i n e - h e i g h t :   1 . 5 ; 
+     w o r d - w r a p :   b r e a k - w o r d ; 
+     a n i m a t i o n :   m e s s a g e - p o p   0 . 3 s   c u b i c - b e z i e r ( 0 . 1 6 ,   1 ,   0 . 3 ,   1 )   f o r w a r d s ; 
+     o p a c i t y :   0 ; 
+     t r a n s f o r m :   t r a n s l a t e Y ( 1 0 p x ) ; 
+ } 
+ 
+ @ k e y f r a m e s   m e s s a g e - p o p   { 
+     t o   {   o p a c i t y :   1 ;   t r a n s f o r m :   t r a n s l a t e Y ( 0 ) ;   } 
+ } 
+ 
+ . m e s s a g e   p : l a s t - c h i l d   {   m a r g i n - b o t t o m :   0 ;   } 
+ . m e s s a g e   p : f i r s t - c h i l d   {   m a r g i n - t o p :   0 ;   } 
+ 
+ . m e s s a g e . m o d e l   { 
+     a l i g n - s e l f :   f l e x - s t a r t ; 
+     b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 0 5 ) ; 
+     b o r d e r :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
+     b o r d e r - b o t t o m - l e f t - r a d i u s :   4 p x ; 
+ } 
+ 
+ . m e s s a g e . m o d e l   s t r o n g   { 
+     c o l o r :   v a r ( - - a c c e n t ) ; 
+ } 
+ 
+ . m e s s a g e . u s e r   { 
+     a l i g n - s e l f :   f l e x - e n d ; 
+     b a c k g r o u n d :   l i n e a r - g r a d i e n t ( 1 3 5 d e g ,   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 2 ) ,   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 1 ) ) ; 
+     b o r d e r :   1 p x   s o l i d   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 3 ) ; 
+     b o r d e r - b o t t o m - r i g h t - r a d i u s :   4 p x ; 
+     c o l o r :   # e 2 e 8 f 0 ; 
+ } 
+ 
+ / *   T y p i n g   I n d i c a t o r   * / 
+ . t y p i n g - i n d i c a t o r   { 
+     p a d d i n g :   8 p x   1 6 p x ; 
+     a l i g n - s e l f :   f l e x - s t a r t ; 
+ } 
+ . t y p i n g - d o t   {   d i s p l a y :   i n l i n e - b l o c k ;   w i d t h :   6 p x ;   h e i g h t :   6 p x ;   b o r d e r - r a d i u s :   5 0 % ;   b a c k g r o u n d :   v a r ( - - t e x t - m u t e d ) ;   m a r g i n - r i g h t :   4 p x ;   a n i m a t i o n :   c h a t - b l i n k   1 . 4 s   i n f i n i t e   b o t h ;   } 
+ . t y p i n g - d o t : n t h - c h i l d ( 2 )   {   a n i m a t i o n - d e l a y :   0 . 2 s ;   } 
+ . t y p i n g - d o t : n t h - c h i l d ( 3 )   {   a n i m a t i o n - d e l a y :   0 . 4 s ;   } 
+ 
+ @ k e y f r a m e s   c h a t - b l i n k   { 
+     0 %   {   o p a c i t y :   0 . 2 ;   t r a n s f o r m :   t r a n s l a t e Y ( 0 ) ;   } 
+     2 0 %   {   o p a c i t y :   1 ;   t r a n s f o r m :   t r a n s l a t e Y ( - 2 p x ) ;   } 
+     1 0 0 %   {   o p a c i t y :   0 . 2 ;   t r a n s f o r m :   t r a n s l a t e Y ( 0 ) ;   } 
+ } 
+ 
+ . c h a t b o t - i n p u t - a r e a   { 
+     p a d d i n g :   1 2 p x ; 
+     b o r d e r - t o p :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
+     d i s p l a y :   f l e x ; 
+     g a p :   8 p x ; 
+     b a c k g r o u n d :   r g b a ( 0 ,   0 ,   0 ,   0 . 2 ) ; 
+ } 
+ 
+ . c h a t b o t - i n p u t   { 
+     f l e x :   1 ; 
+     b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 0 5 ) ; 
+     b o r d e r :   1 p x   s o l i d   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
+     b o r d e r - r a d i u s :   2 0 p x ; 
+     p a d d i n g :   1 0 p x   1 6 p x ; 
+     c o l o r :   # f f f ; 
+     f o n t - f a m i l y :   i n h e r i t ; 
+     f o n t - s i z e :   0 . 9 r e m ; 
+     t r a n s i t i o n :   a l l   0 . 2 s ; 
+     o u t l i n e :   n o n e ; 
+ } 
+ 
+ . c h a t b o t - i n p u t : f o c u s   { 
+     b o r d e r - c o l o r :   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 5 ) ; 
+     b a c k g r o u n d :   r g b a ( 2 5 5 ,   2 5 5 ,   2 5 5 ,   0 . 1 ) ; 
+ } 
+ 
+ . c h a t b o t - s e n d   { 
+     b a c k g r o u n d :   v a r ( - - a c c e n t ) ; 
+     c o l o r :   # f f f ; 
+     b o r d e r :   n o n e ; 
+     w i d t h :   4 0 p x ; 
+     h e i g h t :   4 0 p x ; 
+     b o r d e r - r a d i u s :   5 0 % ; 
+     d i s p l a y :   f l e x ; 
+     a l i g n - i t e m s :   c e n t e r ; 
+     j u s t i f y - c o n t e n t :   c e n t e r ; 
+     c u r s o r :   p o i n t e r ; 
+     t r a n s i t i o n :   t r a n s f o r m   0 . 2 s ,   b a c k g r o u n d   0 . 2 s ; 
+ } 
+ 
+ . c h a t b o t - s e n d : h o v e r : n o t ( : d i s a b l e d )   { 
+     t r a n s f o r m :   s c a l e ( 1 . 0 5 ) ; 
+     b a c k g r o u n d :   # 3 b 8 2 f 6 ; 
+ } 
+ 
+ . c h a t b o t - s e n d : d i s a b l e d   { 
+     o p a c i t y :   0 . 5 ; 
+     c u r s o r :   n o t - a l l o w e d ; 
+     f i l t e r :   g r a y s c a l e ( 1 ) ; 
+ } 
+ 
+ / *   T o g g l e   B u t t o n   F l o a t i n g   * / 
+ . c h a t b o t - t o g g l e - b t n   { 
+     p o s i t i o n :   f i x e d ; 
+     b o t t o m :   2 4 p x ; 
+     r i g h t :   2 4 p x ; 
+     w i d t h :   6 0 p x ; 
+     h e i g h t :   6 0 p x ; 
+     b o r d e r - r a d i u s :   5 0 % ; 
+     b a c k g r o u n d :   l i n e a r - g r a d i e n t ( 1 3 5 d e g ,   v a r ( - - a c c e n t ) ,   # 8 b 5 c f 6 ) ; 
+     b o r d e r :   n o n e ; 
+     c o l o r :   w h i t e ; 
+     f o n t - s i z e :   1 . 5 r e m ; 
+     c u r s o r :   p o i n t e r ; 
+     b o x - s h a d o w :   0   1 0 p x   2 0 p x   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 3 ) ,   i n s e t   0   0   0   1 p x   r g b a ( 2 5 5 , 2 5 5 , 2 5 5 , 0 . 2 ) ; 
+     d i s p l a y :   f l e x ; 
+     a l i g n - i t e m s :   c e n t e r ; 
+     j u s t i f y - c o n t e n t :   c e n t e r ; 
+     z - i n d e x :   9 9 9 ; 
+     t r a n s i t i o n :   a l l   0 . 3 s   c u b i c - b e z i e r ( 0 . 1 7 5 ,   0 . 8 8 5 ,   0 . 3 2 ,   1 . 2 7 5 ) ; 
+ } 
+ 
+ . c h a t b o t - t o g g l e - b t n : h o v e r   { 
+     t r a n s f o r m :   s c a l e ( 1 . 1 )   t r a n s l a t e Y ( - 2 p x ) ; 
+     b o x - s h a d o w :   0   1 4 p x   2 8 p x   r g b a ( 7 9 ,   1 5 6 ,   2 4 9 ,   0 . 4 ) ,   i n s e t   0   0   0   1 p x   r g b a ( 2 5 5 , 2 5 5 , 2 5 5 , 0 . 3 ) ; 
+ } 
+ 
+ . c h a t b o t - t o g g l e - b t n . h i d d e n   { 
+     o p a c i t y :   0 ; 
+     p o i n t e r - e v e n t s :   n o n e ; 
+     t r a n s f o r m :   s c a l e ( 0 . 8 )   t r a n s l a t e Y ( 2 0 p x ) ; 
+ } 
+  
+ 
