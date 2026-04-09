@@ -1,153 +1,175 @@
-# Chord detection
-This repo contains the code structure for the detection of guitar chords from input images.  
-The dataset of this project is located in: https://github.com/LincLabUCCS/Albert
+Real-Time Polyphonic Guitar Chord Detection
 
-## Installation (Linux)
+### Using FFT-Based Chromagram & Cosine Similarity
 
-**Create conda environment**
-```
-$ conda create -n ENVIRONMENT_NAME python=3
-$ conda activate ENVIRONMENT_NAME
-$ conda config --add channels conda-forge
-$ conda config --add channels pytorch
-```
+  Overview
 
-**Clone and install requirements**
-```
-$ git clone git@github.com:AlbertMitjans/chord-detection.git
-$ cd chord-detection/
-$ conda install --file requirements.txt
-```
-**Download pretrained weights**
-```
-$ cd checkpoints/
-$ bash get_weights.sh
-```
-If you have compatibility issues use [this](https://drive.google.com/file/d/1n7Cwc7UWHaZ88vGpPoLlX_yJnAu1L6TT/view?usp=sharing) download link. The content of the zip file should go into a new folder named "best_ckpt" inside the folder checkpoints: checkpoints/best_ckpt/.
+This project implements a **real-time guitar chord detection system** capable of identifying chords from **polyphonic audio signals**. It leverages **signal processing techniques** such as:
 
-**Download dataset**
-```
-$ cd ..
-$ cd data/
-$ bash get_dataset.sh
-```
-If you have compatibility issues use [this](https://drive.google.com/file/d/1Bh_MMfSJm1BqqxL7bZyO4bSREODSHZYL/view?usp=sharing) download link. The content of the zip file should go in the folder data/.
+* Fast Fourier Transform (FFT)
+* Chromagram feature extraction
+* Cosine similarity-based chord matching
 
-## Hourglass network
+The system processes live or recorded audio input and outputs the detected chord with minimal latency.
 
-### Run test
+---
 
-Evaluates the model on the dataset. The network outputs 3 heatmaps with the position of the detected frets, strings and fingers.
+##  Features
 
-```
-$ python3 main.py --train False --ckpt checkpoints/best_ckpt/MTL_hourglass.pth
-```
+* Real-time chord detection from guitar audio
+*  Supports **polyphonic input** (multiple notes played together)
+*  Efficient FFT-based frequency analysis
+*  Chromagram representation of pitch classes
+*  Cosine similarity for chord classification
+*  Lightweight — no heavy ML model required
 
-As default, for every image, the input and the output are saved in the *output/* folder.
+---
 
-<p align="center">
-  <img width="450" height="175" src="assets/output1.png">
-  <img width="450" height="175" src="assets/output2.png">
-  <img width="450" height="175" src="assets/output3.png">
-</p>
+## 🧠 How It Works
 
-**Testing log**
-```
-FINGERS:        Recall(%): 89.646       Precision(%): 96.970
-FRETS:          Recall(%): 96.717       Precision(%): 100.000
-STRINGS:        Recall(%): 89.380       Precision(%): 100.000
-   
-```
+### 1. Audio Input
 
-### Run train
+* Capture audio (microphone or file)
+* Convert into frames for processing
 
-Trains the pre-trained network from scratch or from a given checkpoint.
+### 2. FFT (Frequency Analysis)
 
-```
-$ python3 main.py
-```
+* Transform time-domain signal → frequency domain
+* Identify dominant frequencies in the signal
+   FFT helps reveal frequency peaks corresponding to musical notes ([GitHub][1])
 
-**Training log**
-```
-Epoch: [0][10/172]      Loss.avg: 96.6020       Batch time: 0.4998 s    Total time: 0.3796 min
-FINGERS:        Recall(%): 50.758       Precision(%): 95.455
-FRETS:          Recall(%): 3.636        Precision(%): 0.308
-STRINGS:        Recall(%): 1.515        Precision(%): 0.088
-```
+### 3. Chromagram Extraction
 
-**Tensorboard**
+* Map frequencies into **12 pitch classes**:
 
-Track training progress in Tensorboard:
-+ Initialize training
-+ Run the command below inside the chord-detection directory.
-+ Go to [http://localhost:6006/](http://localhost:6006/)
+  ```
+  C, C#, D, D#, E, F, F#, G, G#, A, A#, B
+  ```
+* Output is a **12-dimensional vector** representing energy per pitch
+
+ Chromagram is a compact representation of harmonic content ([GitHub][2])
+
+### 4. Chord Template Matching
+
+* Predefined chord templates (major/minor)
+* Each template = binary/weighted pitch vector
+
+### 5. Cosine Similarity
+
+* Compare input chroma vector with chord templates
+* Choose chord with highest similarity
+
+ Cosine similarity measures alignment between vectors ([ResearchGate][3])
+
+---
+
+##  Project Structure
 
 ```
-$ tensorboard --logdir='logs' --port=6006
+├── src/
+│   ├── audio_processing.py
+│   ├── fft_module.py
+│   ├── chromagram.py
+│   ├── chord_templates.py
+│   └── chord_detection.py
+│
+├── data/
+│   └── sample_audio.wav
+│
+├── requirements.txt
+└── main.py
 ```
 
-### Arguments
---train (default:True) : if True/False, training/testing is implemented.  
---val_data (default:True) : if True/False, all/validation data will be evaluated.  
---save_imgs (default:True) : if True output images will be saved in the \Output folder.  
---batch_size (default:1)  
---depth (default:True) : if True/False, depth/RGB images will be used.  
---ckpt(default:None)  
---num_epochs (default:200)  
+---
 
-## Chord detection
+##  Installation
 
-### Image detection
+### 1. Clone the Repository
 
-Detects the chords played in all the images of the dataset.
-
-```
-$ python3 detect.py --print_tab True --plot_imgs True
+```bash
+git clone https://github.com/vijaysrikrishna07/Real-Time-Polyphonic-Guitar-Chord-Detection-Using-FFT-Based-Chromagram-and-Cosine-Similarity.git
+cd Real-Time-Polyphonic-Guitar-Chord-Detection-Using-FFT-Based-Chromagram-and-Cosine-Similarity
 ```
 
-<p align="center">
-  <img width="250" height="200" src="assets/plot1.png">
-  <img width="250" height="200" src="assets/plot2.png">
-  <img width="250" height="200" src="assets/plot3.png">
-</p>
+### 2. Install Dependencies
 
-**Image detection log**
-```
-image1.jpg:
-
-Tablature:
-
-[[0. 0. 0. 0. 1. 0.]
- [0. 0. 1. 0. 0. 0.]
- [0. 1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 0. 0.]]
-
-Target: C  ,  Prediction: C (100%)
-
-Detection precision: 100.0%
+```bash
+pip install -r requirements.txt
 ```
 
-#### Arguments
---folder (default:2) : choose image folder for the detection. The dataset contains three different folders (0, 1 or 2).  
---print_tab (default:False) : prints the tablature obtained from the detection.  
---plot_imgs (default:False) : plots images of the detection process.  
---conf_matrix (default:False) : creates and saves a confusion matrix of the detection of all the images.  
+---
 
-### Video
+##  Usage
 
-Detects the chords of every frame of a video of the dataset and saves the results as a new video.
+### Run Real-Time Detection
 
-```
-$ python3 video.py --vid_number 1 --show_animation True
+```bash
+python main.py
 ```
 
-<p align="center">
-  <img width="500" height="300" src="assets/video.PNG">
-</p>
+### Run on Audio File
 
-#### Arguments
---vid_number (default:1) : number of the video to use for the detection. The dataset contains up to 21 different videos.  
---show_animation (default:True) : plots the saved frames during the detection process.
+```bash
+python main.py --input sample_audio.wav
+```
 
+---
 
+##  Example Output
+
+```
+Input Audio Frame → Processing...
+Detected Chord: C Major (Confidence: 0.91)
+
+Detected Chord: G Major (Confidence: 0.87)
+```
+
+---
+
+##  Future Improvements
+
+*  Support for advanced chords (7th, diminished, augmented)
+*  Integrate ML/DL models for improved accuracy
+*  Build GUI or mobile interface
+*  MIDI output integration
+*  Noise robustness improvements
+
+---
+
+##  Applications
+
+*  Guitar learning tools
+*  Music transcription
+*  Live performance analysis
+*  Music information retrieval
+
+---
+
+##  References
+
+* FFT-based audio analysis techniques
+* Chromagram feature extraction in MIR
+* Cosine similarity for pattern matching
+* Real-time chord detection research papers
+
+---
+
+##  License
+
+This project is open-source and available under the **MIT License**.
+
+---
+
+##  Author
+
+**Vijay Sri krishna**
+
+* GitHub: [https://github.com/vijaysrikrishna07](https://github.com/vijaysrikrishna07)
+
+---
+
+ Contributing
+
+Pull requests are welcome!
+For major changes, please open an issue first to discuss what you'd like to improve.
 
